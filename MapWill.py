@@ -21,12 +21,20 @@ box5 = box(pos=vector(12, -14, 0), size=vector(9, 1, 3), color=color.green)
 box5.rotate(angle=radians(box_angle), axis=vector(
     0, 0, 1), origin=vector(11, -13, 0))
 # sin30*9 = depan (box 6); y sekarang di 4.5+14
-x_box5_cos30 = (math.sqrt(3)/2) * 9
-x_box5 = x_box5_cos30+11
+x_box6_cos30 = (math.sqrt(3)/2) * 9
+x_box6 = x_box6_cos30+11
 # 18.794228634059948
 
-box5 = box(pos=vector(x_box5, -16.5, 0),
+box6 = box(pos=vector(x_box6, -16.5, 0),
            size=vector(8, 1, 3), color=color.green)
+
+box7 = box(pos=vector(25, -24.5, 0), size=vector(1, 28, 3), color=color.green)
+# end di 38.5
+box8 = box(pos=vector(22, -24.5, 0), size=vector(1, 16, 3), color=color.green)
+
+box8 = box(pos=vector(5, -38.5, 0), size=vector(40, 1, 3), color=color.green)
+# stop box
+box9 = box(pos=vector(-5, -37.5, 0), size=vector(2, 2, 2), color=color.red)
 
 
 # slope_ground = box(pos=vector(2, -0.5, 0),
