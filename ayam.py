@@ -1,10 +1,4 @@
 from tkinter import *
-from tkinter import ttk
-from vpython import *
-
-# Initialize Tkinter
-
-from tkinter import *
 
 
 class CircleButton(Canvas):
@@ -25,7 +19,7 @@ class CircleButton(Canvas):
             self.command()
 
 
-def Force():
+def Ayam():
     def increment():
         value.set(value.get() + 1)
 
@@ -34,16 +28,18 @@ def Force():
     # Create the Tkinter window
     root = Tk()
     root.geometry("600x400")
+
+    # Create a StringVar to store the number value
     value = IntVar()
     value.set(25)  # Set initial value to 0
 
-    # # Create a square frame
-    # square_frame = Frame(root, width=200, height=200, bd=1, relief="solid")
-    # square_frame.place(x=200, y=120)
+    # Create a square frame
+    square_frame = Frame(root, width=300, height=300, bd=1, relief="solid")
+    square_frame.place(x=200, y=120)
 
     # Create a label to display the number inside the square
-    label = Label(root, textvariable=value, font=("Helvetica", 60))
-    label.place(x=200, y=120)
+    label = Label(square_frame, textvariable=value, font=("Helvetica", 60))
+    label.pack(expand=True)
 
     # # Create an increment button
     # increment_button = Button(root, text="Increment", command=increment)
@@ -71,4 +67,4 @@ def Force():
     root.mainloop()
 
 
-# Force()
+Ayam()
