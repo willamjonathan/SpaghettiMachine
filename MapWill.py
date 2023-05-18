@@ -10,9 +10,16 @@ ground = box(pos=vector(-3.5, -0.5, 0),
 ball = sphere(pos=vector(-3, 2, 0), radius=0.5, color=color.red)
 # Obstacles
 box_angle = -30
+box_angle1 = -10.176
 
 box2 = box(pos=vector(2, -4, 0), size=vector(1, 11, 3), color=color.orange)
 box3 = box(pos=vector(4, -12, 0), size=vector(8, 1, 3), color=color.green)
+
+
+# boxFIX = box(pos=vector((0+(19.5)/2), (-12+15.5), 0), size=vector(19.5, 3.5, 1)
+#              )
+# boxFIX.rotate(angle=radians(box_angle), axis=vector(
+#     0, 0, 1), origin=vector(-10, -19, 0))
 box4 = box(pos=vector(0, -6, 0), size=vector(1, 12, 3), color=color.orange)
 box5 = box(pos=vector(12, -14, 0), size=vector(9, 1, 3), color=color.yellow)
 box5.rotate(angle=radians(box_angle), axis=vector(
@@ -24,6 +31,8 @@ x_box6 = x_box6_cos30+11
 box6 = box(pos=vector(x_box6, -16.5, 0),
            size=vector(8, 1, 3), color=color.green)
 
+
+# beresnya harus di 23 ; mmulainya dari 0
 box7 = box(pos=vector(25, -24.5, 0), size=vector(1, 28, 3), color=color.orange)
 box8 = box(pos=vector(22, -24.5, 0), size=vector(1, 16, 3), color=color.orange)
 
