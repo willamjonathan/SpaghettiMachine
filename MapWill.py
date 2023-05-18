@@ -51,7 +51,7 @@ dt = 0.01
 
 # Simulation loop
 while True:
-    rate(100)
+    rate(300)
 
     # Update position
     ball.pos += ball.velocity * dt
@@ -79,9 +79,24 @@ while True:
         ball.pos += ball.velocity * dt
 
 # Check if ball passes through box3 and hits box5
-    if ball.pos.x >= box5.pos.x - box5.size.x/2 and ball.pos.y >= box5.pos.y - box5.size.y/2:
+    if ball.pos.x >= box5.pos.x - box5.size.x/2 and ball.pos.y >= box5.pos.y - box5.size.y/2 and ball.pos.x <= box5.pos.x + box5.size.x/2 and ball.pos.y >= box5.pos.y + box5.size.y/2:
         slope_angle = math.radians(box_angle)
         # Set the ball's velocity for the slope
         ball.velocity.y = math.sin(slope_angle)-0.8
+        ball.pos += ball.velocity * dt
 
+    # if ball.pos.x >= box5.pos.x + box5.size.x/2 and ball.pos.y >= box5.pos.y - box5.size.y/2:
+    #     ball.pos.y = box5.pos.y - box5.size.y/2 - \
+    #         math.sin(slope_angle) * (ball.pos.x - (box5.pos.x - box5.size.x/2))
+
+    if ball.pos.x >= box6.pos.x - box6.size.x/2 and ball.pos.y >= box6.pos.y - box6.size.y/2:
+        ball.velocity.y = 0
+        ball.velocity.x = 1
+        ball.pos += ball.velocity * dt
+
+
+# Check if ball hits box7
+    if ball.pos.x >= box7.pos.x - box7.size.x and ball.pos.y >= box7.pos.y - box7.size.y:
+        ball.velocity.x = 0  # Stop the ball in the X direction
+        ball.velocity.y = -1  # Move only in the Y direction
         ball.pos += ball.velocity * dt
