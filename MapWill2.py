@@ -167,21 +167,54 @@ while True:
         # print(ball.pos.x)
         # print(ball.pos.y)
         velocity_akhir = math.sqrt(math.pow((x_v), 2) + math.pow((y_v), 2))
-        print(velocity_akhir)
+        # print(velocity_akhir)
 
     # Hitung kecepatan akhir bola (vf) menggunakan persamaan
     # energi mekanik: vf = sqrt(v0^2 + 2 * g * h),
     # di mana h adalah ketinggian jatuh bola tegak lurus
     # (dihitung menggunakan langkah-langkah yang telah dijelaskan sebelumnya).
 
-    if ball.pos.y <= - 3.6 and ball.pos.x > 6.9:
+    if ball.pos.y <= - 3.6 and ball.pos.x > 6.9 and \
+            ball.pos.y > -8.5 + ball.radius:
         ball_velocity.x = 0
-        ball_velocity.y = math.sqrt(
+        ball_velocity.y = -math.sqrt(
             math.pow(velocity_akhir, 2) + 2 * 9.8 * 3.5)
+        velocity_akhir = ball_velocity.y
         # h = 3.5
         ball.pos += ball_velocity * dt
+        print((slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
+               * sin(radians(slope2_angle))))
+        print(velocity_akhir)
 
-        # Check if the ball hits wall 1
+    # check if ball hits slope2
+
+    if ball.pos.y >= (slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
+                      * sin(radians(slope2_angle))-0.5) and ball.pos.y <= -7.5:
+        y2_v = (velocity_akhir *
+                math.sin(radians(-30)) - (t*9.8))
+        x2_v = (velocity_akhir * math.cos(radians(-30)))
+        ball_velocity.x = x2_v
+        ball_velocity.y = y2_v
+        ball.pos += ball_velocity * dt
+    # Check if the ball reaches slope2
+    # if ball.pos.x >= slope2_start_x:
+    #     # Calculate the y-position of the slope at the current x-position of the ball
+    #     slope2_y = slope2_start_y + math.tan(math.radians(slope2_angle)) * (ball.pos.x - slope2_start_x)
+
+    #     # Move the ball to the top of the slope
+    #     ball.pos.y = slope2_y + ball.radius
+
+    #     # Update the ball's velocity to move along the slope
+    #     ball_velocity.x = potential_to_velocity(10) * math.cos(math.radians(slope2_angle))
+    #     ball_velocity.y = potential_to_velocity(10) * math.sin(math.radians(slope2_angle))
+
+    # # Update position
+    # ball.pos += ball_velocity * dt
+
+    # # Apply gravity
+    # ball_velocity += potential_to_velocity_vector(10) * dt
+
+    # Check if the ball hits wall 1
     if ball.pos.x <= wall1.pos.x + wall1.size.x / 2:
         ball_velocity.x = 0
         break
