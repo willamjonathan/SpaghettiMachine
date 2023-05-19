@@ -1,1 +1,2 @@
-        # ball.pos.y = slope1.pos.y + slope1.size.y
+scene.camera.follow(ball)
+camera_follow = True
