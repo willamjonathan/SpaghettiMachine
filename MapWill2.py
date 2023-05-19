@@ -16,7 +16,7 @@ cekposisi = box(pos=vector(-6, -37.5, 0),
 
 
 # creating map and obstacles!
-wall1 = box(pos=vector(-7, -8, 0), size=vector(1, 54, 0), color=color.blue)
+wall1 = box(pos=vector(-7, -6, 0), size=vector(1, 54, 0), color=color.blue)
 wall2 = box(pos=vector(8, -8, 0), size=vector(1, 46, 0), color=color.blue)
 
 slope1_angle = -30
@@ -197,9 +197,9 @@ while True:
         ball_velocity.y = y2_v
         ball.pos += ball_velocity * dt
         velocity_akhir2 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
-        print(velocity_akhir2)
+        # print(velocity_akhir2)
 
-    # Check if the ball hits wall 1
+    # Check if the ball hits wall 1 after finish slope 2
     if ball.pos.x >= -6 - ball.radius and\
             ball.pos.y <= -13 and ball.pos.y >= -19.5:
         ball_velocity.x = 0
@@ -209,17 +209,54 @@ while True:
         # h = 3.5
         ball.pos += ball_velocity * dt
 
+    # Ball hits slope3?
     if ball.pos.y >= (slope3.pos.y + (slope3.size.x / 2 + 2*ball.radius)
                       * sin(radians(slope3_angle))) and ball.pos.y <= -19.5 and ball.pos.x <= slope3.pos.x + \
             (slope3.size.x / 2 + ball.radius) * cos(radians(slope3_angle)):
         y3_v = (velocity_akhir2 *
-                math.sin(radians(-30)) - (t*9.8)-4.5)
+                math.sin(radians(-30)) - (t*9.8)-5.5)
         x3_v = (velocity_akhir2 * math.cos(radians(-30)))
         ball_velocity.x = - x3_v
         ball_velocity.y = y3_v
         ball.pos += ball_velocity * dt
+        print(ball.pos.x)
+        print(ball.pos.y)
         velocity_akhir3 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
 
+    # ball finish slope 3 hits wall 2
+    if ball.pos.y <= - 23.6 and ball.pos.x > 6.9 and \
+            ball.pos.y > -30.5 + ball.radius:
+        ball_velocity.x = 0
+        ball_velocity.y = -math.sqrt(
+            math.pow(velocity_akhir3, 2) + 2 * 9.8 * 7)
+        velocity_akhir3 = ball_velocity.y
+        # h = 7 = (30.5-23.6)
+        ball.pos += ball_velocity * dt
+        # ball_velocity.y = -1
+        # print((slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
+        #        * sin(radians(slope2_angle))))
+        # print(velocity_akhir)
+
+# Slope 4 - still progress
+    if ball.pos.y >= (slope4.pos.y + (slope4.size.x / 2 - 2*ball.radius)
+                      * sin(radians(slope4_angle))-0.5) and ball.pos.y <= -29.5 and ball.pos.x > -4.5:
+        y4_v = (velocity_akhir3 *
+                math.sin(radians(-30)) - (t*9.8)-7.5)
+        x4_v = (velocity_akhir3 * math.cos(radians(-30)))
+        ball_velocity.x = x4_v
+        ball_velocity.y = y4_v
+        ball.pos += ball_velocity * dt
+        velocity_akhir4 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
+        # print(velocity_akhir2)
+# ground
+    if ball.pos.x <= -6 and ball.pos.y <= -36.5 and ball.pos.y >= -38.5:
+        ball_velocity.y = 0
+        ball_velocity.x = -velocity_akhir4
+        ball.pos += ball_velocity * dt
+
+    if ball.pos.x <= -20.5 and ball.pos.y <= -36.5 and ball.pos.y >= -38.5:
+        ball_velocity = 0
+        break
         # if ball.pos.y <= - 3.6 and ball.pos.x > 6.9 and \
         #     ball.pos.y > -8.5 + ball.radius:
 
