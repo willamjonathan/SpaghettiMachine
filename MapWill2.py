@@ -137,7 +137,7 @@ popup_text = None
 
 # Simulate the ball's motion
 while True:
-    rate(100)  # Limit the refresh rate of the scene
+    rate(80)  # Limit the refresh rate of the scene
 
     # ball.pos += ball.velocity.y(potential_to_velocity(10)*-1) * dt
 
@@ -189,35 +189,30 @@ while True:
     # check if ball hits slope2
 
     if ball.pos.y >= (slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
-                      * sin(radians(slope2_angle))-0.5) and ball.pos.y <= -7.5:
+                      * sin(radians(slope2_angle))-0.5) and ball.pos.y <= -7.5 and ball.pos.x > -4.5:
         y2_v = (velocity_akhir *
-                math.sin(radians(-30)) - (t*9.8))
+                math.sin(radians(-30)) - (t*9.8)-4.5)
         x2_v = (velocity_akhir * math.cos(radians(-30)))
         ball_velocity.x = x2_v
         ball_velocity.y = y2_v
         ball.pos += ball_velocity * dt
-    # Check if the ball reaches slope2
-    # if ball.pos.x >= slope2_start_x:
-    #     # Calculate the y-position of the slope at the current x-position of the ball
-    #     slope2_y = slope2_start_y + math.tan(math.radians(slope2_angle)) * (ball.pos.x - slope2_start_x)
-
-    #     # Move the ball to the top of the slope
-    #     ball.pos.y = slope2_y + ball.radius
-
-    #     # Update the ball's velocity to move along the slope
-    #     ball_velocity.x = potential_to_velocity(10) * math.cos(math.radians(slope2_angle))
-    #     ball_velocity.y = potential_to_velocity(10) * math.sin(math.radians(slope2_angle))
-
-    # # Update position
-    # ball.pos += ball_velocity * dt
-
-    # # Apply gravity
-    # ball_velocity += potential_to_velocity_vector(10) * dt
+        velocity_akhir2 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
+        print(velocity_akhir2)
 
     # Check if the ball hits wall 1
-    if ball.pos.x <= wall1.pos.x + wall1.size.x / 2:
+    if ball.pos.x >= -6 - ball.radius and\
+            ball.pos.y <= -13 and ball.pos.y >= -19.5:
         ball_velocity.x = 0
-        break
+        ball_velocity.y = -velocity_akhir2
+        
+
+        # if ball.pos.y <= - 3.6 and ball.pos.x > 6.9 and \
+        #     ball.pos.y > -8.5 + ball.radius:
+
+    # # Check if the ball hits wall 1
+    # if ball.pos.x >= 6 - ball.radius:
+    #     ball_velocity.x = 0
+    #     break
 
         # Check if the ball hits wall2
     if ball.pos.x >= wall2.pos.x - wall2.size.x / 2:
