@@ -48,3 +48,32 @@ ground = box(pos=vector(-15.5, -37.5, 0), size=vector(
 # hit finish line
 end_box = box(pos=vector(-22.5, -36.5, 0), size=vector(
     4, 2, 0.5), color=color.red)
+
+# Define initial variables
+ball_velocity = vector(0, -1, 0)  # Initial velocity of the ball
+gravity = vector(0, -9.8, 0)  # Acceleration due to gravity
+dt = 0.01  # Time step for simulation
+
+# Simulate the ball's motion
+while True:
+    rate(300)  # Limit the refresh rate of the scene
+
+    # Update position
+    ball.pos += ball_velocity * dt
+
+    # Apply gravity
+    ball_velocity += gravity * dt
+
+    # Check if the ball hits slope 1
+    if slope1.pos.y <= ball.pos.y <= slope1.pos.y + slope1.size.y:
+        # Keep the ball on the surface of slope 1
+        # ball.pos.y = slope1.pos.y + slope1.size.y
+        ball_velocity.y = -0.6  # Move downwards
+        ball_velocity.x = 12   # Move towards wall2
+
+    # Check if the ball hits wall2
+    if ball.pos.x >= wall2.pos.x - wall2.size.x / 2:
+        ball_velocity = vector(0, 0, 0)  # Stop the ball's motion
+
+# Print a message when the ball hits the end box
+print("Ball hit the end box!")
