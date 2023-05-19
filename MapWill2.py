@@ -26,13 +26,13 @@ slope1.rotate(angle=radians(slope1_angle), axis=vector(
 # tinggi ke bawah 9 dan kekiri 12; berarti posisi y ny itu 4.5 dari slope sblm
 # tambahin 2, posisi x = -5.5
 slope2_angle = 30
-slope2 = box(pos=vector(-5, -10.5, 0), size=vector(
+slope2 = box(pos=vector(-4.5, -10.5, 0), size=vector(
     15, 0.5, 0.5), color=color.orange)
 slope2.rotate(angle=radians(slope2_angle), axis=vector(
     0, 0, 1), origin=vector(0, 0, 0))
 
 slope3_angle = -30
-slope3 = box(pos=vector(12, -20, 0), size=vector(
+slope3 = box(pos=vector(11, -20, 0), size=vector(
     15, 0.5, 0.5), color=color.orange)
 slope3.rotate(angle=radians(slope3_angle), axis=vector(
     0, 0, 1), origin=vector(0, 0, 0))
