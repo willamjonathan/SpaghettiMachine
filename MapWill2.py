@@ -9,7 +9,7 @@ scene = canvas(width=1600, height=1000)
 
 # creating object
 # dia ditaruh di height:10 di atas slope
-ball = sphere(pos=vector(-6.0, 15, 0), radius=0.5, color=color.red)
+ball = sphere(pos=vector(-6.0, 15, 0), radius=0.5, color=color.green)
 
 cekposisi = box(pos=vector(-6, -37.5, 0),
                 size=vector(1, 1, 0), color=color.yellow)
@@ -257,15 +257,7 @@ while True:
     if ball.pos.x <= -20.5 and ball.pos.y <= -36.5 and ball.pos.y >= -38.5:
         ball_velocity = 0
         break
-        # if ball.pos.y <= - 3.6 and ball.pos.x > 6.9 and \
-        #     ball.pos.y > -8.5 + ball.radius:
 
-        # # Check if the ball hits wall 1
-        # if ball.pos.x >= 6 - ball.radius:
-        #     ball_velocity.x = 0
-        #     break
-
-        # Check if the ball hits wall2
     if ball.pos.x >= wall2.pos.x - wall2.size.x / 2:
         ball_velocity = vector(0, 0, 0)  # Stop the ball's motion
 
@@ -274,3 +266,5 @@ while True:
 
 # Print a message when the ball hits the end box
 print("Ball hit the end box!")
+label_text = " GOOD GAME!"
+label(pos=vector(-22.5, -39, 0), text=label_text, color=color.white, height=20)
