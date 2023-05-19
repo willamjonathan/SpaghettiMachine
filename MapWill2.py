@@ -182,9 +182,9 @@ while True:
         velocity_akhir = ball_velocity.y
         # h = 3.5
         ball.pos += ball_velocity * dt
-        print((slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
-               * sin(radians(slope2_angle))))
-        print(velocity_akhir)
+        # print((slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
+        #        * sin(radians(slope2_angle))))
+        # print(velocity_akhir)
 
     # check if ball hits slope2
 
@@ -203,16 +203,30 @@ while True:
     if ball.pos.x >= -6 - ball.radius and\
             ball.pos.y <= -13 and ball.pos.y >= -19.5:
         ball_velocity.x = 0
-        ball_velocity.y = -velocity_akhir2
-        
+        ball_velocity.y = -math.sqrt(
+            math.pow(velocity_akhir2, 2) + 2 * 9.8 * 3.5)
+        velocity_akhir2 = ball_velocity.y
+        # h = 3.5
+        ball.pos += ball_velocity * dt
+
+    if ball.pos.y >= (slope3.pos.y + (slope3.size.x / 2 + 2*ball.radius)
+                      * sin(radians(slope3_angle))) and ball.pos.y <= -19.5 and ball.pos.x <= slope3.pos.x + \
+            (slope3.size.x / 2 + ball.radius) * cos(radians(slope3_angle)):
+        y3_v = (velocity_akhir2 *
+                math.sin(radians(-30)) - (t*9.8)-4.5)
+        x3_v = (velocity_akhir2 * math.cos(radians(-30)))
+        ball_velocity.x = - x3_v
+        ball_velocity.y = y3_v
+        ball.pos += ball_velocity * dt
+        velocity_akhir3 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
 
         # if ball.pos.y <= - 3.6 and ball.pos.x > 6.9 and \
         #     ball.pos.y > -8.5 + ball.radius:
 
-    # # Check if the ball hits wall 1
-    # if ball.pos.x >= 6 - ball.radius:
-    #     ball_velocity.x = 0
-    #     break
+        # # Check if the ball hits wall 1
+        # if ball.pos.x >= 6 - ball.radius:
+        #     ball_velocity.x = 0
+        #     break
 
         # Check if the ball hits wall2
     if ball.pos.x >= wall2.pos.x - wall2.size.x / 2:
