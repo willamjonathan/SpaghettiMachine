@@ -1,23 +1,32 @@
 from vpython import *
 import math
 
+
 # Set up the scene
 scene = canvas(width=1600, height=1000)
 
 # buat yang map ini cmn bs vary mass ballWill sm height; gak pakai force
 
+h = 15  # heightnya 10 ini soalnya slope kan jadi miring
+b = 10  # heightnya 5 ini
 
-# creating object
 # dia ditaruh di height:10 di atas slope
+
 ballWill = sphere(pos=vector(-6.0, 15, 0), radius=0.5, color=color.green)
 
+# creating object
 cekposisi = box(pos=vector(-6, -37.5, 0),
                 size=vector(1, 1, 0), color=color.yellow)
 
 
 # creating map and obstacles!
-wall1 = box(pos=vector(-7, -6, 0), size=vector(1, 54, 0), color=color.blue)
-wall2 = box(pos=vector(8, -8, 0), size=vector(1, 46, 0), color=color.blue)
+# wall1 = box(pos=vector(-7, -6, 0), size=vector(1, 54, 0), color=color.blue)
+# wall2 = box(pos=vector(8, -12, 0), size=vector(1, 40, 0), color=color.blue)
+
+# walls
+wall_a = box(pos=vector(8, -6, 0), size=vector(1, 6, 0), color=color.white)
+wall_b = box(pos=vector(-7,-16 , 0), size=vector(1, 6, 0), color=color.white)
+wall_c = box(pos=vector(8,-27 , 0), size=vector(1, 6, 0), color=color.white)
 
 slope1_angle = -30
 slope1 = box(pos=vector(0, 0, 0), size=vector(
@@ -26,8 +35,8 @@ slope1 = box(pos=vector(0, 0, 0), size=vector(
 #     13, 0.5, 0.5), color=color.orange)
 slope1.rotate(angle=radians(slope1_angle), axis=vector(
     0, 0, 1), origin=vector(0, 0, 0))
-print(math.sin(-30)*slope1.pos.y + slope1.size.y + ballWill.size.y)
-print(slope1.pos.y)
+# print(math.sin(-30)*slope1.pos.y + slope1.size.y + ballWill.size.y)
+# print(slope1.pos.y)
 
 slope2_angle = 30
 slope2 = box(pos=vector(-4.5, -10.5, 0), size=vector(
@@ -73,8 +82,40 @@ dt = 0.01  # Time step for simulation
 t = 0
 
 
+gravitasi = 9.8
+
+def gravity_increase():
+    global gravitasi
+    gravitasi = gravitasi + 1
+
+def gravity_decrease():
+    global gravitasi
+
+    gravitasi = gravitasi - 1
+
+def gravity_sun():
+    global gravitasi 
+    gravitasi = 274 #kurang lebih 28kali bumi
+
+def gravity_earth():
+    global gravitasi
+    gravitasi = 9.8
+
+def gravity_moon():
+    global gravitasi 
+    gravitasi = 0.16 * 9.8
+
+
+# button_stop = button(bind=stop,pos = scene.title_anchor,text='Stop')
+# button_reset = button(bind=reset,pos = scene.title_anchor,text='Reset')
+button_gravity_up = button(bind=gravity_increase,pos = scene.title_anchor,text='Increase Gravity')
+button_gravity_down = button(bind=gravity_decrease,pos = scene.title_anchor,text='Decrease Gravity')
+button_gravity_earth = button(bind=gravity_earth,pos = scene.title_anchor,text='Earth Gravity')
+button_gravity_moon = button(bind=gravity_moon,pos = scene.title_anchor,text='Moon Gravity')
+button_gravity_sun = button(bind=gravity_sun,pos = scene.title_anchor,text='Sun Gravity')
+
 def potential_energy(m, g, h):
-    pe = m*g*h
+    pe = m*gravitasi*h
     return pe
 
 
@@ -84,13 +125,13 @@ def kinetic_energy(m, v):
 
 
 def potential_to_velocity_vector(h):
-    v = (math.sqrt(2*9.8 * h))*-1
+    v = (math.sqrt(2*gravitasi * h))*-1
     a = vector(0, v, 0)
     return a
 
 
 def potential_to_velocity(h):
-    v = (math.sqrt(2*9.8 * h))*-1
+    v = (math.sqrt(2*gravitasi * h))*-1
     return v
 
 
@@ -138,16 +179,11 @@ popup_text = None
 # Simulate the ballWill's motion
 while True:
     rate(80)  # Limit the refresh rate of the scene
-
-    # ballWill.pos += ballWill.velocity.y(potential_to_velocity(10)*-1) * dt
-
     # Update position
     ballWill.pos += ballWill_velocity * dt
-
-    # print(potential_to_velocity(10))
-
     # Apply gravity
     ballWill_velocity += potential_to_velocity_vector(10) * dt
+
 
     # Check if the ballWill hits slope 1
     if ballWill.pos.y >= (slope1.pos.y + (slope1.size.x / 2 + 2*ballWill.radius)
@@ -162,12 +198,8 @@ while True:
         x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1
         ballWill_velocity.x = x_v
         ballWill_velocity.y = y_v
-
         ballWill.pos += ballWill_velocity * dt
-        # print(ballWill.pos.x)
-        # print(ballWill.pos.y)
         velocity_akhir = math.sqrt(math.pow((x_v), 2) + math.pow((y_v), 2))
-        # print(velocity_akhir)
 
     # Hitung kecepatan akhir bola (vf) menggunakan persamaan
     # energi mekanik: vf = sqrt(v0^2 + 2 * g * h),
@@ -176,10 +208,19 @@ while True:
 
     if ballWill.pos.y <= - 3.6 and ballWill.pos.x > 6.9 and \
             ballWill.pos.y > -8.5 + ballWill.radius:
+    # if ballWill.pos.y <= wall_a.pos.y + wall_a.size.y/2-ballWill.radius and ballWill.pos.x > 6.9 and \
+    #         ballWill.pos.y > wall_a.pos.y - wall_a.size.y/2+2*ballWill.radius:
         ballWill_velocity.x = 0
         ballWill_velocity.y = -math.sqrt(
             math.pow(velocity_akhir, 2) + 2 * 9.8 * 3.5)
         velocity_akhir = ballWill_velocity.y
+        print(wall_a.pos.y + wall_a.size.y/2-ballWill.radius)
+        print(wall_a.pos.y - wall_a.size.y/2+2*ballWill.radius)
+        # print(wall_a.pos.y + wall_a.size.y/2)
+        print(wall_b.pos.y - wall_b.size.y/2- 0.5)
+        print(wall_b.pos.y + wall_b.size.y/2)
+        print(ballWill.pos)
+        # print(wall_c.pos.y + wall_c.size.y/2)
         # h = 3.5
         ballWill.pos += ballWill_velocity * dt
         # print((slope2.pos.y + (slope2.size.x / 2 - 2*ballWill.radius)
@@ -200,8 +241,13 @@ while True:
         # print(velocity_akhir2)
 
     # Check if the ballWill hits wall 1 after finish slope 2
+    # if ballWill.pos.x >= -6 - ballWill.radius and\
+    #         ballWill.pos.y <=  wall_b.pos.y + wall_b.size.y/2 and ballWill.pos.y >= wall_b.pos.y - wall_b.size.y/2 - 0.5:
+         # Check if the ballWill hits wall 1 after finish slope 2
     if ballWill.pos.x >= -6 - ballWill.radius and\
             ballWill.pos.y <= -13 and ballWill.pos.y >= -19.5:
+        # wall_b.pos.y + wall_b.size.y/2 = -13
+        # -19.5 yang satu lg
         ballWill_velocity.x = 0
         ballWill_velocity.y = -math.sqrt(
             math.pow(velocity_akhir2, 2) + 2 * 9.8 * 3.5)
@@ -219,23 +265,20 @@ while True:
         ballWill_velocity.x = - x3_v
         ballWill_velocity.y = y3_v
         ballWill.pos += ballWill_velocity * dt
-        print(ballWill.pos.x)
-        print(ballWill.pos.y)
+        # print(ballWill.pos.x)
+        # print(ballWill.pos.y)
         velocity_akhir3 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
 
     # ballWill finish slope 3 hits wall 2
-    if ballWill.pos.y <= - 23.6 and ballWill.pos.x > 6.9 and \
-            ballWill.pos.y > -30.5 + ballWill.radius:
+    if ballWill.pos.y <= wall_c.pos.y + wall_c.size.y/2 and ballWill.pos.x > 6.9 and \
+            ballWill.pos.y > wall_c.pos.y - wall_c.size.y/2:
         ballWill_velocity.x = 0
         ballWill_velocity.y = -math.sqrt(
             math.pow(velocity_akhir3, 2) + 2 * 9.8 * 7)
         velocity_akhir3 = ballWill_velocity.y
+        print(ballWill.pos)
         # h = 7 = (30.5-23.6)
         ballWill.pos += ballWill_velocity * dt
-        # ballWill_velocity.y = -1
-        # print((slope2.pos.y + (slope2.size.x / 2 - 2*ballWill.radius)
-        #        * sin(radians(slope2_angle))))
-        # print(velocity_akhir)
 
 # Slope 4 - still progress
     if ballWill.pos.y >= (slope4.pos.y + (slope4.size.x / 2 - 2*ballWill.radius)
@@ -248,6 +291,7 @@ while True:
         ballWill.pos += ballWill_velocity * dt
         velocity_akhir4 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
         # print(velocity_akhir2)
+        
 # ground
     if ballWill.pos.x <= -6 and ballWill.pos.y <= -36.5 and ballWill.pos.y >= -38.5:
         ballWill_velocity.y = 0
@@ -258,8 +302,8 @@ while True:
         ballWill_velocity = 0
         break
 
-    if ballWill.pos.x >= wall2.pos.x - wall2.size.x / 2:
-        ballWill_velocity = vector(0, 0, 0)  # Stop the ballWill's motion
+    # if ballWill.pos.x >= wall2.pos.x - wall2.size.x / 2:
+    #     ballWill_velocity = vector(0, 0, 0)  # Stop the ballWill's motion
 
      # Increment time
     t += dt
