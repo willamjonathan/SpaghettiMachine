@@ -193,9 +193,21 @@ while True:
         # ballWill_velocity.y = potential_to_velocity(
         #     10) * math.sin(slope1_angle) - t*gravity
         # print(potential_to_velocity(10) * math.cos(radians(slope1_angle)) * -1)
+
+        # kondisi sun; gravitasi sun ga jalan
+        # if (gravitasi == 274):
+        #     if ballWill.pos.y == 4.6:
+        #         y_v = (potential_to_velocity(10) *
+        #        math.sin(radians(-30)) + 30)
+        #         x_v = (potential_to_velocity(10) * math.cos(radians(-30)))-1
+        # else:
+        #     print(ballWill.pos)
+        #     y_v = (potential_to_velocity(10) *
+        #        math.sin(radians(-30)) - (t*gravitasi))
+        #     x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1
         y_v = (potential_to_velocity(10) *
-               math.sin(radians(-30)) - (t*9.8))
-        x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1
+               math.sin(radians(-30)) - (t*gravitasi))
+        x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1    
         ballWill_velocity.x = x_v
         ballWill_velocity.y = y_v
         ballWill.pos += ballWill_velocity * dt
@@ -207,12 +219,12 @@ while True:
     # (dihitung menggunakan langkah-langkah yang telah dijelaskan sebelumnya).
 
     if ballWill.pos.y <= - 3.6 and ballWill.pos.x > 6.9 and \
-            ballWill.pos.y > -8.5 + ballWill.radius:
+            ballWill.pos.y > -8.5 + ballWill.radius and ballWill.pos.x < 7.4:
     # if ballWill.pos.y <= wall_a.pos.y + wall_a.size.y/2-ballWill.radius and ballWill.pos.x > 6.9 and \
     #         ballWill.pos.y > wall_a.pos.y - wall_a.size.y/2+2*ballWill.radius:
         ballWill_velocity.x = 0
         ballWill_velocity.y = -math.sqrt(
-            math.pow(velocity_akhir, 2) + 2 * 9.8 * 3.5)
+            math.pow(velocity_akhir, 2) + 2 * gravitasi * 3.5)
         velocity_akhir = ballWill_velocity.y
         print(wall_a.pos.y + wall_a.size.y/2-ballWill.radius)
         print(wall_a.pos.y - wall_a.size.y/2+2*ballWill.radius)
@@ -232,7 +244,7 @@ while True:
     if ballWill.pos.y >= (slope2.pos.y + (slope2.size.x / 2 - 2*ballWill.radius)
                           * sin(radians(slope2_angle))-0.5) and ballWill.pos.y <= -7.5 and ballWill.pos.x > -4.5:
         y2_v = (velocity_akhir *
-                math.sin(radians(-30)) - (t*9.8)-4.5)
+                math.sin(radians(-30)) - (t*gravitasi)-4.5)
         x2_v = (velocity_akhir * math.cos(radians(-30)))
         ballWill_velocity.x = x2_v
         ballWill_velocity.y = y2_v
@@ -245,7 +257,7 @@ while True:
     #         ballWill.pos.y <=  wall_b.pos.y + wall_b.size.y/2 and ballWill.pos.y >= wall_b.pos.y - wall_b.size.y/2 - 0.5:
          # Check if the ballWill hits wall 1 after finish slope 2
     if ballWill.pos.x >= -6 - ballWill.radius and\
-            ballWill.pos.y <= -13 and ballWill.pos.y >= -19.5:
+            ballWill.pos.y <= -13 and ballWill.pos.y >= -19.5 and ballWill.pos.x < 7.4:
         # wall_b.pos.y + wall_b.size.y/2 = -13
         # -19.5 yang satu lg
         ballWill_velocity.x = 0
@@ -284,7 +296,7 @@ while True:
     if ballWill.pos.y >= (slope4.pos.y + (slope4.size.x / 2 - 2*ballWill.radius)
                           * sin(radians(slope4_angle))-0.5) and ballWill.pos.y <= -29.5 and ballWill.pos.x > -4.5:
         y4_v = (velocity_akhir3 *
-                math.sin(radians(-30)) - (t*9.8)-7.5)
+                math.sin(radians(-30)) - (t*gravitasi)-7.5)
         x4_v = (velocity_akhir3 * math.cos(radians(-30)))
         ballWill_velocity.x = x4_v
         ballWill_velocity.y = y4_v
