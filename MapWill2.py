@@ -195,19 +195,18 @@ while True:
         # print(potential_to_velocity(10) * math.cos(radians(slope1_angle)) * -1)
 
         # kondisi sun; gravitasi sun ga jalan
-        # if (gravitasi == 274):
-        #     if ballWill.pos.y == 4.6:
-        #         y_v = (potential_to_velocity(10) *
-        #        math.sin(radians(-30)) + 30)
-        #         x_v = (potential_to_velocity(10) * math.cos(radians(-30)))-1
-        # else:
-        #     print(ballWill.pos)
-        #     y_v = (potential_to_velocity(10) *
-        #        math.sin(radians(-30)) - (t*gravitasi))
-        #     x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1
-        y_v = (potential_to_velocity(10) *
+        if (gravitasi == 274):
+                y_v = (potential_to_velocity(10) *
+               math.sin(radians(-30)) + 10)
+                x_v = (potential_to_velocity(10) * math.sin(radians(-30)))
+        else:
+            print(ballWill.pos)
+            y_v = (potential_to_velocity(10) *
                math.sin(radians(-30)) - (t*gravitasi))
-        x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1    
+            x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1
+        # y_v = (potential_to_velocity(10) *
+        #        math.sin(radians(-30)) - (t*gravitasi))
+        # x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1    
         ballWill_velocity.x = x_v
         ballWill_velocity.y = y_v
         ballWill.pos += ballWill_velocity * dt
@@ -243,9 +242,14 @@ while True:
 
     if ballWill.pos.y >= (slope2.pos.y + (slope2.size.x / 2 - 2*ballWill.radius)
                           * sin(radians(slope2_angle))-0.5) and ballWill.pos.y <= -7.5 and ballWill.pos.x > -4.5:
-        y2_v = (velocity_akhir *
+        if (gravitasi == 274):
+            y2_v = 2*(velocity_akhir *
                 math.sin(radians(-30)) - (t*gravitasi)-4.5)
-        x2_v = (velocity_akhir * math.cos(radians(-30)))
+            x2_v = 2*(velocity_akhir * math.cos(radians(-30)))
+        else:
+            y2_v = (velocity_akhir *
+                math.sin(radians(-30)) - (t*gravitasi)-4.5)
+            x2_v = (velocity_akhir * math.cos(radians(-30)))
         ballWill_velocity.x = x2_v
         ballWill_velocity.y = y2_v
         ballWill.pos += ballWill_velocity * dt
