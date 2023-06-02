@@ -337,11 +337,15 @@ while True:
         ballWill.pos += ballWill_velocity * dt
 
     if ballWill.pos.x <= -20.5 and ballWill.pos.y <= -36.5 and ballWill.pos.y >= -38.5:
-        ballWill_velocity = 0
+        ballWill_velocity = vector(0,0,0)
         print("ballWill hit the end box!")
         label_text = " GOOD GAME!" + "Time elapsed: {} seconds".format(time_elapsed)
         label(pos=vector(-22.5, -39, 0), text=label_text, color=color.white, height=20)
-        break
+        ballWill.pos.x = -20.5
+        time_elapsed=0
+        paused = True
+        
+        # break
 
     # if ballWill.pos.x >= wall2.pos.x - wall2.size.x / 2:
     #     ballWill_velocity = vector(0, 0, 0)  # Stop the ballWill's motion
