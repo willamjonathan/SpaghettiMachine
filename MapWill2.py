@@ -83,6 +83,19 @@ t = 0
 
 
 gravitasi = 9.8
+# global variables
+paused = False
+
+# To pause
+def toggle_pause():
+    global paused
+    paused = not paused
+
+def restart():
+    global ballWill_velocity, t
+    ballWill.pos = vector(-6.0, 15, 0)
+    ballWill_velocity = vector(0, 0, 0)
+    t = 0
 
 def gravity_increase():
     global gravitasi
@@ -106,8 +119,8 @@ def gravity_moon():
     gravitasi = 0.16 * 9.8
 
 
-# button_stop = button(bind=stop,pos = scene.title_anchor,text='Stop')
-# button_reset = button(bind=reset,pos = scene.title_anchor,text='Reset')
+button_stop = button(bind=toggle_pause,pos = scene.title_anchor,text='Stop')
+button_reset = button(bind=restart,pos = scene.title_anchor,text='Reset')
 button_gravity_up = button(bind=gravity_increase,pos = scene.title_anchor,text='Increase Gravity')
 button_gravity_down = button(bind=gravity_decrease,pos = scene.title_anchor,text='Decrease Gravity')
 button_gravity_earth = button(bind=gravity_earth,pos = scene.title_anchor,text='Earth Gravity')
@@ -179,6 +192,9 @@ popup_text = None
 # Simulate the ballWill's motion
 while True:
     rate(80)  # Limit the refresh rate of the scene
+
+    if paused:
+        continue
     # Update position
     ballWill.pos += ballWill_velocity * dt
     # Apply gravity
