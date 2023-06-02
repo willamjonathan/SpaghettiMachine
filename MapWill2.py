@@ -195,165 +195,168 @@ popup_text = None
 
 # Simulate the ball's motion
 start_timer()
+def WillJo1():
+    global ball, ball_velocity
+    while paused==False:
+        rate(80)  # Limit the refresh rate of the scene
+        time_elapsed += 1/80
 
-while True:
-    rate(80)  # Limit the refresh rate of the scene
-    time_elapsed += 1/80
-
-    if paused:
-        continue
-    # Update position
-    ball.pos += ball_velocity * dt
-    # Apply gravity
-    ball_velocity += potential_to_velocity_vector(10) * dt
+        if paused:
+            continue
+        # Update position
+        ball.pos += ball_velocity * dt
+        # Apply gravity
+        ball_velocity += potential_to_velocity_vector(10) * dt
 
 
-    # Check if the ball hits slope 1
-    if ball.pos.y >= (slope1.pos.y + (slope1.size.x / 2 + 2*ball.radius)
-                          * sin(radians(slope1_angle))) and ball.pos.y <= 4.5 and ball.pos.x <= slope1.pos.x + \
-            (slope1.size.x / 2 + ball.radius) * cos(radians(slope1_angle)):
-        # ball_velocity.x = potential_to_velocity(10) * math.cos(slope1_angle)
-        # ball_velocity.y = potential_to_velocity(
-        #     10) * math.sin(slope1_angle) - t*gravity
-        # print(potential_to_velocity(10) * math.cos(radians(slope1_angle)) * -1)
+        # Check if the ball hits slope 1
+        if ball.pos.y >= (slope1.pos.y + (slope1.size.x / 2 + 2*ball.radius)
+                            * sin(radians(slope1_angle))) and ball.pos.y <= 4.5 and ball.pos.x <= slope1.pos.x + \
+                (slope1.size.x / 2 + ball.radius) * cos(radians(slope1_angle)):
+            # ball_velocity.x = potential_to_velocity(10) * math.cos(slope1_angle)
+            # ball_velocity.y = potential_to_velocity(
+            #     10) * math.sin(slope1_angle) - t*gravity
+            # print(potential_to_velocity(10) * math.cos(radians(slope1_angle)) * -1)
 
-        # kondisi sun; gravitasi sun ga jalan
-        if (gravitasi == 274):
+            # kondisi sun; gravitasi sun ga jalan
+            if (gravitasi == 274):
+                    y_v = (potential_to_velocity(10) *
+                math.sin(radians(-30)) + 10)
+                    x_v = (potential_to_velocity(10) * math.sin(radians(-30)))
+            else:
+                print(ball.pos)
                 y_v = (potential_to_velocity(10) *
-               math.sin(radians(-30)) + 10)
-                x_v = (potential_to_velocity(10) * math.sin(radians(-30)))
-        else:
+                math.sin(radians(-30)) - (t*gravitasi))
+                x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1
+            # y_v = (potential_to_velocity(10) *
+            #        math.sin(radians(-30)) - (t*gravitasi))
+            # x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1    
+            ball_velocity.x = x_v
+            ball_velocity.y = y_v
+            ball.pos += ball_velocity * dt
+            velocity_akhir = math.sqrt(math.pow((x_v), 2) + math.pow((y_v), 2))
+
+        # Hitung kecepatan akhir bola (vf) menggunakan persamaan
+        # energi mekanik: vf = sqrt(v0^2 + 2 * g * h),
+        # di mana h adalah ketinggian jatuh bola tegak lurus
+        # (dihitung menggunakan langkah-langkah yang telah dijelaskan sebelumnya).
+
+        if ball.pos.y <= - 3.6 and ball.pos.x > 6.9 and \
+                ball.pos.y > -8.5 + ball.radius and ball.pos.x < 7.4:
+        # if ball.pos.y <= wall_a.pos.y + wall_a.size.y/2-ball.radius and ball.pos.x > 6.9 and \
+        #         ball.pos.y > wall_a.pos.y - wall_a.size.y/2+2*ball.radius:
+            ball_velocity.x = 0
+            ball_velocity.y = -math.sqrt(
+                math.pow(velocity_akhir, 2) + 2 * gravitasi * 3.5)
+            velocity_akhir = ball_velocity.y
+            print(wall_a.pos.y + wall_a.size.y/2-ball.radius)
+            print(wall_a.pos.y - wall_a.size.y/2+2*ball.radius)
+            # print(wall_a.pos.y + wall_a.size.y/2)
+            print(wall_b.pos.y - wall_b.size.y/2- 0.5)
+            print(wall_b.pos.y + wall_b.size.y/2)
             print(ball.pos)
-            y_v = (potential_to_velocity(10) *
-               math.sin(radians(-30)) - (t*gravitasi))
-            x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1
-        # y_v = (potential_to_velocity(10) *
-        #        math.sin(radians(-30)) - (t*gravitasi))
-        # x_v = (potential_to_velocity(10) * math.cos(radians(-30)))*-1    
-        ball_velocity.x = x_v
-        ball_velocity.y = y_v
-        ball.pos += ball_velocity * dt
-        velocity_akhir = math.sqrt(math.pow((x_v), 2) + math.pow((y_v), 2))
+            # print(wall_c.pos.y + wall_c.size.y/2)
+            # h = 3.5
+            ball.pos += ball_velocity * dt
+            # print((slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
+            #        * sin(radians(slope2_angle))))
+            # print(velocity_akhir)
 
-    # Hitung kecepatan akhir bola (vf) menggunakan persamaan
-    # energi mekanik: vf = sqrt(v0^2 + 2 * g * h),
-    # di mana h adalah ketinggian jatuh bola tegak lurus
-    # (dihitung menggunakan langkah-langkah yang telah dijelaskan sebelumnya).
+        # check if ball hits slope2
 
-    if ball.pos.y <= - 3.6 and ball.pos.x > 6.9 and \
-            ball.pos.y > -8.5 + ball.radius and ball.pos.x < 7.4:
-    # if ball.pos.y <= wall_a.pos.y + wall_a.size.y/2-ball.radius and ball.pos.x > 6.9 and \
-    #         ball.pos.y > wall_a.pos.y - wall_a.size.y/2+2*ball.radius:
-        ball_velocity.x = 0
-        ball_velocity.y = -math.sqrt(
-            math.pow(velocity_akhir, 2) + 2 * gravitasi * 3.5)
-        velocity_akhir = ball_velocity.y
-        print(wall_a.pos.y + wall_a.size.y/2-ball.radius)
-        print(wall_a.pos.y - wall_a.size.y/2+2*ball.radius)
-        # print(wall_a.pos.y + wall_a.size.y/2)
-        print(wall_b.pos.y - wall_b.size.y/2- 0.5)
-        print(wall_b.pos.y + wall_b.size.y/2)
-        print(ball.pos)
-        # print(wall_c.pos.y + wall_c.size.y/2)
-        # h = 3.5
-        ball.pos += ball_velocity * dt
-        # print((slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
-        #        * sin(radians(slope2_angle))))
-        # print(velocity_akhir)
+        if ball.pos.y >= (slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
+                            * sin(radians(slope2_angle))-0.5) and ball.pos.y <= -7.5 and ball.pos.x > -4.5:
+            if (gravitasi == 274):
+                y2_v = 2*(velocity_akhir *
+                    math.sin(radians(-30)) - (t*gravitasi)-4.5)
+                x2_v = 2*(velocity_akhir * math.cos(radians(-30)))
+            else:
+                y2_v = (velocity_akhir *
+                    math.sin(radians(-30)) - (t*gravitasi)-4.5)
+                x2_v = (velocity_akhir * math.cos(radians(-30)))
+            ball_velocity.x = x2_v
+            ball_velocity.y = y2_v
+            ball.pos += ball_velocity * dt
+            velocity_akhir2 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
+            # print(velocity_akhir2)
 
-    # check if ball hits slope2
+        # Check if the ball hits wall 1 after finish slope 2
+        # if ball.pos.x >= -6 - ball.radius and\
+        #         ball.pos.y <=  wall_b.pos.y + wall_b.size.y/2 and ball.pos.y >= wall_b.pos.y - wall_b.size.y/2 - 0.5:
+            # Check if the ball hits wall 1 after finish slope 2
+        if ball.pos.x >= -6 - ball.radius and\
+                ball.pos.y <= -13 and ball.pos.y >= -19.5 and ball.pos.x < 7.4:
+            # wall_b.pos.y + wall_b.size.y/2 = -13
+            # -19.5 yang satu lg
+            ball_velocity.x = 0
+            ball_velocity.y = -math.sqrt(
+                math.pow(velocity_akhir2, 2) + 2 * 9.8 * 3.5)
+            velocity_akhir2 = ball_velocity.y
+            # h = 3.5
+            ball.pos += ball_velocity * dt
 
-    if ball.pos.y >= (slope2.pos.y + (slope2.size.x / 2 - 2*ball.radius)
-                          * sin(radians(slope2_angle))-0.5) and ball.pos.y <= -7.5 and ball.pos.x > -4.5:
-        if (gravitasi == 274):
-            y2_v = 2*(velocity_akhir *
-                math.sin(radians(-30)) - (t*gravitasi)-4.5)
-            x2_v = 2*(velocity_akhir * math.cos(radians(-30)))
-        else:
-            y2_v = (velocity_akhir *
-                math.sin(radians(-30)) - (t*gravitasi)-4.5)
-            x2_v = (velocity_akhir * math.cos(radians(-30)))
-        ball_velocity.x = x2_v
-        ball_velocity.y = y2_v
-        ball.pos += ball_velocity * dt
-        velocity_akhir2 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
-        # print(velocity_akhir2)
+        # ball hits slope3?
+        if ball.pos.y >= (slope3.pos.y + (slope3.size.x / 2 + 2*ball.radius)
+                            * sin(radians(slope3_angle))) and ball.pos.y <= -19.5 and ball.pos.x <= slope3.pos.x + \
+                (slope3.size.x / 2 + ball.radius) * cos(radians(slope3_angle)):
+            y3_v = (velocity_akhir2 *
+                    math.sin(radians(-30)) - (t*9.8)-5.5)
+            x3_v = (velocity_akhir2 * math.cos(radians(-30)))
+            ball_velocity.x = - x3_v
+            ball_velocity.y = y3_v
+            ball.pos += ball_velocity * dt
+            # print(ball.pos.x)
+            # print(ball.pos.y)
+            velocity_akhir3 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
 
-    # Check if the ball hits wall 1 after finish slope 2
-    # if ball.pos.x >= -6 - ball.radius and\
-    #         ball.pos.y <=  wall_b.pos.y + wall_b.size.y/2 and ball.pos.y >= wall_b.pos.y - wall_b.size.y/2 - 0.5:
-         # Check if the ball hits wall 1 after finish slope 2
-    if ball.pos.x >= -6 - ball.radius and\
-            ball.pos.y <= -13 and ball.pos.y >= -19.5 and ball.pos.x < 7.4:
-        # wall_b.pos.y + wall_b.size.y/2 = -13
-        # -19.5 yang satu lg
-        ball_velocity.x = 0
-        ball_velocity.y = -math.sqrt(
-            math.pow(velocity_akhir2, 2) + 2 * 9.8 * 3.5)
-        velocity_akhir2 = ball_velocity.y
-        # h = 3.5
-        ball.pos += ball_velocity * dt
+        # ball finish slope 3 hits wall 2
+        if ball.pos.y <= wall_c.pos.y + wall_c.size.y/2 and ball.pos.x > 6.9 and \
+                ball.pos.y > wall_c.pos.y - wall_c.size.y/2:
+            ball_velocity.x = 0
+            ball_velocity.y = -math.sqrt(
+                math.pow(velocity_akhir3, 2) + 2 * 9.8 * 7)
+            velocity_akhir3 = ball_velocity.y
+            print(ball.pos)
+            # h = 7 = (30.5-23.6)
+            ball.pos += ball_velocity * dt
 
-    # ball hits slope3?
-    if ball.pos.y >= (slope3.pos.y + (slope3.size.x / 2 + 2*ball.radius)
-                          * sin(radians(slope3_angle))) and ball.pos.y <= -19.5 and ball.pos.x <= slope3.pos.x + \
-            (slope3.size.x / 2 + ball.radius) * cos(radians(slope3_angle)):
-        y3_v = (velocity_akhir2 *
-                math.sin(radians(-30)) - (t*9.8)-5.5)
-        x3_v = (velocity_akhir2 * math.cos(radians(-30)))
-        ball_velocity.x = - x3_v
-        ball_velocity.y = y3_v
-        ball.pos += ball_velocity * dt
-        # print(ball.pos.x)
-        # print(ball.pos.y)
-        velocity_akhir3 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
+    # Slope 4 - still progress
+        if ball.pos.y >= (slope4.pos.y + (slope4.size.x / 2 - 2*ball.radius)
+                            * sin(radians(slope4_angle))-0.5) and ball.pos.y <= -29.5 and ball.pos.x > -4.5:
+            y4_v = (velocity_akhir3 *
+                    math.sin(radians(-30)) - (t*gravitasi)-7.5)
+            x4_v = (velocity_akhir3 * math.cos(radians(-30)))
+            ball_velocity.x = x4_v
+            ball_velocity.y = y4_v
+            ball.pos += ball_velocity * dt
+            velocity_akhir4 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
+            # print(velocity_akhir2)
+            
+    # ground
+        if ball.pos.x <= -6 and ball.pos.y <= -36.5 and ball.pos.y >= -38.5:
+            ball_velocity.y = 0
+            ball_velocity.x = -velocity_akhir4
+            ball.pos += ball_velocity * dt
 
-    # ball finish slope 3 hits wall 2
-    if ball.pos.y <= wall_c.pos.y + wall_c.size.y/2 and ball.pos.x > 6.9 and \
-            ball.pos.y > wall_c.pos.y - wall_c.size.y/2:
-        ball_velocity.x = 0
-        ball_velocity.y = -math.sqrt(
-            math.pow(velocity_akhir3, 2) + 2 * 9.8 * 7)
-        velocity_akhir3 = ball_velocity.y
-        print(ball.pos)
-        # h = 7 = (30.5-23.6)
-        ball.pos += ball_velocity * dt
+        if ball.pos.x <= -20.5 and ball.pos.y <= -36.5 and ball.pos.y >= -38.5:
+            ball_velocity = vector(0,0,0)
+            print("ball hit the end box!")
+            label_text = " GOOD GAME!" + "Time elapsed: {} seconds".format(time_elapsed)
+            label(pos=vector(-22.5, -39, 0), text=label_text, color=color.white, height=20)
+            ball.pos.x = -20.5
+            time_elapsed=0
+            paused = True
+            
+            # break
 
-# Slope 4 - still progress
-    if ball.pos.y >= (slope4.pos.y + (slope4.size.x / 2 - 2*ball.radius)
-                          * sin(radians(slope4_angle))-0.5) and ball.pos.y <= -29.5 and ball.pos.x > -4.5:
-        y4_v = (velocity_akhir3 *
-                math.sin(radians(-30)) - (t*gravitasi)-7.5)
-        x4_v = (velocity_akhir3 * math.cos(radians(-30)))
-        ball_velocity.x = x4_v
-        ball_velocity.y = y4_v
-        ball.pos += ball_velocity * dt
-        velocity_akhir4 = math.sqrt(math.pow((x2_v), 2) + math.pow((y2_v), 2))
-        # print(velocity_akhir2)
+        # if ball.pos.x >= wall2.pos.x - wall2.size.x / 2:
+        #     ball_velocity = vector(0, 0, 0)  # Stop the ball's motion
+
+        # Increment time
+        t += dt
+
+    # Print a message when the ball hits the end box
         
-# ground
-    if ball.pos.x <= -6 and ball.pos.y <= -36.5 and ball.pos.y >= -38.5:
-        ball_velocity.y = 0
-        ball_velocity.x = -velocity_akhir4
-        ball.pos += ball_velocity * dt
+        # scene.caption = "Time elapsed: {} seconds".format(time_elapsed)
 
-    if ball.pos.x <= -20.5 and ball.pos.y <= -36.5 and ball.pos.y >= -38.5:
-        ball_velocity = vector(0,0,0)
-        print("ball hit the end box!")
-        label_text = " GOOD GAME!" + "Time elapsed: {} seconds".format(time_elapsed)
-        label(pos=vector(-22.5, -39, 0), text=label_text, color=color.white, height=20)
-        ball.pos.x = -20.5
-        time_elapsed=0
-        paused = True
-        
-        # break
-
-    # if ball.pos.x >= wall2.pos.x - wall2.size.x / 2:
-    #     ball_velocity = vector(0, 0, 0)  # Stop the ball's motion
-
-     # Increment time
-    t += dt
-
-# Print a message when the ball hits the end box
-    
-    # scene.caption = "Time elapsed: {} seconds".format(time_elapsed)
+WillJo1()
