@@ -85,6 +85,10 @@ t = 0
 gravitasi = 9.8
 # global variables
 paused = False
+# timer 
+def start_timer():
+    global time_elapsed
+    time_elapsed = 0
 
 # To pause
 def toggle_pause():
@@ -190,8 +194,10 @@ scene.bind("keydown", on_key_down)
 popup_text = None
 
 # Simulate the ballWill's motion
+start_timer()
 while True:
     rate(80)  # Limit the refresh rate of the scene
+    time_elapsed += 1/80
 
     if paused:
         continue
@@ -332,6 +338,9 @@ while True:
 
     if ballWill.pos.x <= -20.5 and ballWill.pos.y <= -36.5 and ballWill.pos.y >= -38.5:
         ballWill_velocity = 0
+        print("ballWill hit the end box!")
+        label_text = " GOOD GAME!" + "Time elapsed: {} seconds".format(time_elapsed)
+        label(pos=vector(-22.5, -39, 0), text=label_text, color=color.white, height=20)
         break
 
     # if ballWill.pos.x >= wall2.pos.x - wall2.size.x / 2:
@@ -341,6 +350,5 @@ while True:
     t += dt
 
 # Print a message when the ballWill hits the end box
-    print("ballWill hit the end box!")
-    label_text = " GOOD GAME!"
-    label(pos=vector(-22.5, -39, 0), text=label_text, color=color.white, height=20)
+    
+    # scene.caption = "Time elapsed: {} seconds".format(time_elapsed)
