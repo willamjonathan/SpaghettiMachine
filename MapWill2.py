@@ -341,6 +341,6 @@ while True:
     t += dt
 
 # Print a message when the ballWill hits the end box
-print("ballWill hit the end box!")
-label_text = " GOOD GAME!"
-label(pos=vector(-22.5, -39, 0), text=label_text, color=color.white, height=20)
+    print("ballWill hit the end box!")
+    label_text = " GOOD GAME!"
+    label(pos=vector(-22.5, -39, 0), text=label_text, color=color.white, height=20)
