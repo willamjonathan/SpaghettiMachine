@@ -203,12 +203,12 @@ def WillJo1():
     global time_elapsed
     global t
     global velocity_akhir, velocity_akhir2, velocity_akhir3, velocity_akhir4
-    while paused==False:
+    while True:
         rate(80)  # Limit the refresh rate of the scene
         time_elapsed += 1/80
 
-        # if paused:
-        #     continue
+        if paused:
+            continue
         # Update position
         ball.pos += ball_velocity * dt
         # Apply gravity
@@ -347,22 +347,13 @@ def WillJo1():
         if ball.pos.x <= -20.5+willjospecial and ball.pos.y <= -36.5 and ball.pos.y >= -38.5:
             ball_velocity = vector(0,0,0)
             print("ball hit the end box!")
-            label_text = " GOOD GAME!" + "Time elapsed: {} seconds".format(time_elapsed)
+            label_text = " GOOD GAME!" + " Time elapsed: {} seconds".format(time_elapsed)
             label(pos=vector(-22.5+willjospecial, -39, 0), text=label_text, color=color.white, height=20)
             ball.pos.x = -20.5+willjospecial
             time_elapsed=0
             paused = True
             
-            # break
-
-        # if ball.pos.x >= wall2.pos.x - wall2.size.x / 2:
-        #     ball_velocity = vector(0, 0, 0)  # Stop the ball's motion
-
         # Increment time
         t += dt
-
-    # Print a message when the ball hits the end box
-        
-        # scene.caption = "Time elapsed: {} seconds".format(time_elapsed)
 
 WillJo1()
