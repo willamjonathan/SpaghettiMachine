@@ -1,7 +1,7 @@
 from tkinter import *
 from vpython import *
 
-from Map import Map
+from unused.Map import Map
 from unused.Ball import Ball
 from unused.Force import Force
 from MapForce import MapX
