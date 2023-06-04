@@ -6,7 +6,14 @@
 
   Within our spaghetti machine, we have incorporated four distinct maps that showcase varying layouts for the ball to navigate through. Additionally, we have implemented interactive buttons that grant users control over certain aspects of our project. Specifically, we have included "Gravity" buttons that enable users to manipulate the gravitational force. They have the ability to increase or decrease gravity, as well as utilize specific gravity settings such as Sun Gravity, Moon Gravity, and Earth Gravity. Furthermore, we have integrated buttons that allow users to manipulate the wind direction, providing options to generate wind blowing to the left or to the right.
 ## Team Members:
+We are all Undergraduate student majoring in Computer Science from Bina Nusantara International University:
+
 1. William Jonathan Mulyadi - 2502045683
 2. Andrean Hasan - 2501982550
 3. Joshua Alexander -	2502005244
 4. Alexandro Joe	- 2501963160
+
+## Report:
+LINK: 
+
+
