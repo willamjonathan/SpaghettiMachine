@@ -12,7 +12,7 @@ b = 10  # heightnya 5 ini
 
 # dia ditaruh di height:10 di atas slope
 
-willjospecial =8000
+willjospecial =400
 ball = sphere(pos=vector(-6.0+willjospecial, 15, 0), radius=0.5, color=color.green)
 
 # creating object
