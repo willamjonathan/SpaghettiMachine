@@ -15,6 +15,9 @@ We are all Undergraduate student majoring in Computer Science from Bina Nusantar
 3. Joshua Alexander -	2502005244
 4. Alexandro Joe	- 2501963160
 
+## User Manual:
+Copy the main.py to glowscript! :D
+
 ## Report:
 LINK: 
 
