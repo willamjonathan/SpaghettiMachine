@@ -1,6 +1,6 @@
 # SpaghettiMachine
 Please run the main.py, to see run our project!
-Glowscript link: [https://www.glowscript.org/#/user/andreanhasan/folder/MyPrograms/program/gabungan/edit](https://www.glowscript.org/#/user/josualex156/folder/MyPrograms/program/Vpython)
+Glowscript link: [https://www.glowscript.org/#/user/josualex156/folder/MyPrograms/program/Vpython](https://www.glowscript.org/#/user/josualex156/folder/MyPrograms/program/Vpython)
 ## Background:
   For our final project, we were given the task to create a physics simulation. Therefore, our initial step was to brainstorm various scenarios for the simulation. Our lecturer, Ms. Seraphine, granted us the freedom to utilize any Python libraries as long as we could create a high-quality simulation. Despite the freedom, we opted to incorporate the concepts taught in our class this semester and decided to develop our project using VPython. 
 
