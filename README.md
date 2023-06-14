@@ -19,6 +19,6 @@ We are all Undergraduate student majoring in Computer Science from Bina Nusantar
 Copy the main.py to glowscript! :D
 
 ## Report:
-LINK: https://docs.google.com/document/d/1iUDYgX5VC0um0sBDXS2hZzMNZhRKM6CeKYftGbf7ZBM/edit?usp=sharing
+LINK: https://docs.google.com/document/d/1xBXlEPAKISJTN_EQzeP2bGTR96E56kLSnnViXHHBupc/edit?usp=sharing
 
 
