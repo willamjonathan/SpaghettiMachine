@@ -16,7 +16,7 @@ We are all Undergraduate student majoring in Computer Science from Bina Nusantar
 4. Alexandro Joe	- 2501963160
 
 ## User Manual:
-Copy the main.py to glowscript! :D
+Copy the main.py to glowscript! :D (to run it you have to use glowscript)
 
 ## Report:
 LINK: https://docs.google.com/document/d/1xBXlEPAKISJTN_EQzeP2bGTR96E56kLSnnViXHHBupc/edit?usp=sharing
